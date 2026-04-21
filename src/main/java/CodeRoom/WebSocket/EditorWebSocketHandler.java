@@ -1,5 +1,7 @@
 package CodeRoom.WebSocket;
 
+import CodeRoom.MessageHandler.MessageHandler;
+import CodeRoom.RoomHandler.SessionInfo;
 
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -9,6 +11,8 @@ import java.util.*;
 public class EditorWebSocketHandler extends TextWebSocketHandler {
 
     private static final Set<WebSocketSession> sessions = new HashSet<>();
+
+    private MessageHandler messageHandler = new MessageHandler();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
@@ -20,12 +24,9 @@ public class EditorWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String payload = message.getPayload();
 
-        // Broadcast to everyone except sender
-        for (WebSocketSession s : sessions) {
-            if (!s.getId().equals(session.getId()) && s.isOpen()) {
-                s.sendMessage(new TextMessage(payload));
-            }
-        }
+        SessionInfo sessionInfo = new SessionInfo();
+        sessionInfo.session = session;
+        messageHandler.handleMessage(payload, sessionInfo);
     }
 
     @Override
