@@ -1,4 +1,9 @@
 CodeRoom/WebSocket/EditorWebSocketHandler.class
+CodeRoom/MessageHandler/MessageType.class
+CodeRoom/CodeRoom.class
+CodeRoom/RoomHandler/RoomHandler.class
+CodeRoom/MessageHandler/MessageHandler.class
 CodeRoom/WebSocket/WebSocketConfig.class
 CodeRoom/Editor/EditorController.class
-CodeRoom/CodeRoom.class
+CodeRoom/RoomHandler/SessionInfo.class
+CodeRoom/RoomHandler/Room.class
